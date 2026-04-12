@@ -27,13 +27,7 @@ export default function PlayerNameModal() {
     const val = inputValue.trim();
     
     if (!val) {
-      setError('กรุณาใส่ชื่อของคุณ');
-      return;
-    }
-    
-    // Validate: Thai/English/Numbers only. Remove trailing spaces implicitly handled by trim()
-    if (!/^[a-zA-Z0-9ก-ฮะ-์\s]+$/.test(val)) {
-      setError('อนุญาตเฉพาะภาษาไทย, อังกฤษ และตัวเลขเท่านั้น');
+      setError('กรุณาใส่ชื่อโอเพนแชทของคุณ');
       return;
     }
 
@@ -72,20 +66,20 @@ export default function PlayerNameModal() {
             สวัสดีปีใหม่! 🎊
           </h2>
           <p className="text-white/90 mb-6 font-prompt">
-            ใส่ชื่อเพื่อเล่นและลงคะแนน
+            ใส่ชื่อโอเพนแชทของคุณเพื่อเล่นและลงคะแนน
           </p>
           
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="relative">
               <input
                 type="text"
-                maxLength={20}
+                maxLength={50}
                 value={inputValue}
                 onChange={(e) => {
                   setInputValue(e.target.value);
                   setError('');
                 }}
-                placeholder="ชื่อของคุณ..."
+                placeholder="ชื่อโอเพนแชทของคุณ..."
                 className="w-full px-4 py-3 rounded-xl bg-white/20 border-2 border-white/40 text-white placeholder-white/60 outline-none focus:border-[var(--color-gold)] transition-colors font-prompt text-lg text-center"
               />
               {error && (
