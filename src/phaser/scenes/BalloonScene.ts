@@ -208,9 +208,7 @@ export default class BalloonScene extends Phaser.Scene {
     const hasPair = new Set(this.revealedNumbers).size !== this.revealedNumbers.length;
 
     if (hasPair) {
-        this.gameOver = true;
-
-        // Highlight matching pairs
+        // Success! Found a pair, move to next row
         const counts: Record<number, number> = {};
         this.revealedNumbers.forEach(v => counts[v] = (counts[v] || 0) + 1);
         
@@ -232,14 +230,18 @@ export default class BalloonScene extends Phaser.Scene {
             }
         });
 
+        this.clicksText.setText('จับคู่สำเร็จ! ไปแถวต่อไป...');
+        this.clicksText.setColor('#00ff00');
+
         this.time.delayedCall(1500, () => {
-            window.dispatchEvent(new CustomEvent('balloon-game-end', {
-                detail: { score: this.totalRowsUsed }
-            }));
+            this.totalRowsUsed++;
+            this.clicksText.setColor('#FF69B4');
+            this.spawnRow();
         });
     } else {
-        // Failed this row
-        this.clicksText.setText('พลาดคู่! กำลังเปลี่ยนแถว...');
+        // Failed failed to find a pair, game over!
+        this.gameOver = true;
+        this.clicksText.setText('พลาดเป้า! จบเกมแล้ว');
         this.clicksText.setColor('#ff4444');
         
         // Dim all
@@ -248,9 +250,9 @@ export default class BalloonScene extends Phaser.Scene {
         });
 
         this.time.delayedCall(1500, () => {
-            this.totalRowsUsed++;
-            this.clicksText.setColor('#FF69B4');
-            this.spawnRow();
+            window.dispatchEvent(new CustomEvent('balloon-game-end', {
+                detail: { score: this.totalRowsUsed - 1 }
+            }));
         });
     }
   }
