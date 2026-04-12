@@ -39,6 +39,14 @@ export default function NavBar({ onOpenNameModal }: NavBarProps) {
             <span>🏆</span> 
             <span className="hidden sm:inline">Leaderboard</span>
           </button>
+
+          <button 
+            onClick={() => navigate('/howtoplay')}
+            className="flex items-center gap-1 md:gap-2 bg-[var(--color-gold)]/30 hover:bg-[var(--color-gold)]/50 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full font-prompt text-sm md:text-base border border-[var(--color-gold)]/40 transition-all shadow-md"
+          >
+            <span>📖</span> 
+            <span className="hidden sm:inline">วิธีเล่น</span>
+          </button>
           
           {hasEnteredName ? (
             <button

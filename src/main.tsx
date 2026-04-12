@@ -7,6 +7,7 @@ import Landing from './pages/Landing';
 import Leaderboard from './pages/Leaderboard';
 import GirlGame from './pages/GirlGame';
 import BalloonGame from './pages/BalloonGame';
+import HowToPlay from './pages/HowToPlay';
 import WaterCursor from './components/WaterCursor';
 import SplashParticleSystem from './components/SplashParticle';
 import MusicToggle from './components/MusicToggle';
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/games/girl" element={<GirlGame />} />
           <Route path="/games/balloon" element={<BalloonGame />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/howtoplay" element={<HowToPlay />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
