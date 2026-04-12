@@ -65,12 +65,11 @@ export default function BalloonGame() {
     };
   }, [playerName]);
 
-  // Lower rows used is better
+  // Higher rows used is better
   const getRatingText = (rows: number) => {
-    if (rows === 1) return "ซุ่มยิงเหรอ! นัดเดียวจอด 🎯";
-    if (rows <= 3) return "แม่นอยู่นะเนี่ย 👍";
-    if (rows <= 5) return "พยายามได้ดี ✌️";
-    return "พรุ่งนี้มาแก้มือใหม่นะ 😢";
+    if (rows >= 10) return "โคตรอึด! สุดยอดมากๆ 🏆";
+    if (rows >= 5) return "สู้ได้ดีมากแม่นยำสุดๆ 👏";
+    return "จบไวไปหน่อย พรุ่งนี้มาแก้มือนะ 🥲";
   };
 
   return (

@@ -46,7 +46,7 @@ export default function Leaderboard() {
       const { data, error } = await supabase
         .from(table)
         .select(`id, player_name, ${scoreCol}, created_at`)
-        .order(scoreCol, { ascending: true })
+        .order(scoreCol, { ascending: activeTab === 'girl' })
         .order('created_at', { ascending: true })
         .limit(10);
       
