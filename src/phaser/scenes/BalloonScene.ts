@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { playBalloonPop, playBalloonRowWin, playBalloonRowFail, playBalloonWin } from '../../lib/audio';
 
 export default class BalloonScene extends Phaser.Scene {
   private totalRowsUsed: number = 1;
@@ -17,6 +18,10 @@ export default class BalloonScene extends Phaser.Scene {
 
   constructor() {
     super('BalloonScene');
+  }
+
+  preload() {
+    this.load.image('balloon', '/images/balloon.png');
   }
 
   create() {
@@ -121,18 +126,13 @@ export default class BalloonScene extends Phaser.Scene {
   private createBalloon(x: number, y: number, value: number) {
     const container = this.add.container(x, y);
 
-    const colors = [0xFF3366, 0x33CCFF, 0x33FF66, 0xFFCC00, 0xCC33FF];
+    const colors = [0xFFFFFF, 0xFFCCFF, 0xCCFFFF, 0xFFFFCC, 0xCCFFCC];
     const color = Phaser.Utils.Array.GetRandom(colors);
 
-    const balloon = this.add.graphics();
-    balloon.fillStyle(color, 1);
-    balloon.fillEllipse(0, 0, 30, 40);
-    // string
-    balloon.lineStyle(2, 0xffffff, 0.8);
-    balloon.beginPath();
-    balloon.moveTo(0, 40);
-    balloon.lineTo(0, 60);
-    balloon.strokePath();
+    const balloon = this.add.sprite(0, 0, 'balloon')
+      .setOrigin(0.5)
+      .setDisplaySize(60, 80)
+      .setTint(color);
 
     container.add(balloon);
 
@@ -157,6 +157,9 @@ export default class BalloonScene extends Phaser.Scene {
         this.currentClicks++;
         
         this.clicksText.setText(`เหลือโอกาสกด: ${this.maxClicksPerRow - this.currentClicks}`);
+
+        // Play pop sound
+        playBalloonPop();
 
         // Dispatch particle
         window.dispatchEvent(new CustomEvent('splash-particle'));
@@ -232,6 +235,8 @@ export default class BalloonScene extends Phaser.Scene {
 
         this.clicksText.setText('จับคู่สำเร็จ! ไปแถวต่อไป...');
         this.clicksText.setColor('#00ff00');
+        
+        playBalloonRowWin();
 
         this.time.delayedCall(1500, () => {
             this.totalRowsUsed++;
@@ -244,12 +249,15 @@ export default class BalloonScene extends Phaser.Scene {
         this.clicksText.setText('พลาดเป้า! จบเกมแล้ว');
         this.clicksText.setColor('#ff4444');
         
+        playBalloonRowFail();
+        
         // Dim all
         this.revealedContainers.forEach(c => {
              this.tweens.add({ targets: c, alpha: 0.3, duration: 500 });
         });
 
         this.time.delayedCall(1500, () => {
+            playBalloonWin();
             window.dispatchEvent(new CustomEvent('balloon-game-end', {
                 detail: { score: this.totalRowsUsed - 1 }
             }));

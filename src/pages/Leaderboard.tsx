@@ -6,6 +6,7 @@ import { supabase } from '../lib/supabase';
 import { useSplash } from '../components/SplashParticle';
 import { useGameStore } from '../stores/gameStore';
 import PlayerNameModal from '../components/PlayerNameModal';
+import { playClick } from '../lib/audio';
 
 type TapType = 'girl' | 'balloon';
 
@@ -89,10 +90,10 @@ export default function Leaderboard() {
   }, [activeTab]); // re-trigger on tab change
 
   const renderBadge = (index: number) => {
-    if (index === 0) return <span className="badge-gold text-sm md:text-base">🥇 อันดับ {index + 1}</span>;
-    if (index === 1) return <span className="badge-silver text-sm md:text-base">🥈 อันดับ {index + 1}</span>;
-    if (index === 2) return <span className="badge-bronze text-sm md:text-base">🥉 อันดับ {index + 1}</span>;
-    return <span className="bg-white/20 px-3 py-1 rounded-full text-white font-fredoka text-sm border-2 border-white/10">อันดับ {index + 1}</span>;
+    if (index === 0) return <span className="badge-gold text-xs sm:text-sm md:text-base whitespace-nowrap inline-block">🥇 อันดับ {index + 1}</span>;
+    if (index === 1) return <span className="badge-silver text-xs sm:text-sm md:text-base whitespace-nowrap inline-block">🥈 อันดับ {index + 1}</span>;
+    if (index === 2) return <span className="badge-bronze text-xs sm:text-sm md:text-base whitespace-nowrap inline-block">🥉 อันดับ {index + 1}</span>;
+    return <span className="bg-white/20 px-3 py-1 rounded-full text-white font-fredoka text-[10px] sm:text-sm border-2 border-white/10 whitespace-nowrap inline-block">อันดับ {index + 1}</span>;
   };
 
   const getTimeAgo = (dateStr: string) => {
@@ -103,7 +104,7 @@ export default function Leaderboard() {
   };
 
   return (
-    <div className="min-h-screen pt-[70px] pb-10">
+    <div className="min-h-screen pt-[70px] pb-safe-nav">
       <NavBar onOpenNameModal={() => {
         setHasEnteredName(false);
         setShowModal(true);
@@ -123,13 +124,19 @@ export default function Leaderboard() {
           />
           <button 
             className={`flex-1 py-2 font-prompt z-10 transition-colors ${activeTab === 'girl' ? 'text-white font-bold' : 'text-white/60 hover:text-white/80'}`}
-            onClick={() => setActiveTab('girl')}
+            onClick={() => {
+              playClick();
+              setActiveTab('girl');
+            }}
           >
             👧💦 สาวน้อย
           </button>
           <button 
             className={`flex-1 py-2 font-prompt z-10 transition-colors ${activeTab === 'balloon' ? 'text-white font-bold' : 'text-white/60 hover:text-white/80'}`}
-            onClick={() => setActiveTab('balloon')}
+            onClick={() => {
+              playClick();
+              setActiveTab('balloon');
+            }}
           >
             🎈 ปาโป่ง
           </button>
@@ -147,22 +154,22 @@ export default function Leaderboard() {
               {scores.map((row, idx) => (
                 <div 
                   key={row.id} 
-                  className="flex items-center justify-between bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl p-4 transition-colors group"
+                  className="flex items-center justify-between bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl p-3 md:p-4 transition-colors group"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-24 shrink-0">
+                  <div className="flex items-center gap-2 md:gap-4 overflow-hidden">
+                    <div className="w-fit shrink-0">
                       {renderBadge(idx)}
                     </div>
-                    <span className="font-prompt font-bold text-lg truncate max-w-[120px] md:max-w-[200px]">
+                    <span className="font-prompt font-bold text-base md:text-lg truncate max-w-[80px] sm:max-w-[120px] md:max-w-[200px]">
                       {row.player_name}
                     </span>
                   </div>
-                  <div className="flex items-center gap-4 md:gap-8 shrink-0">
+                  <div className="flex items-center gap-2 md:gap-8 shrink-0">
                     <div className="flex flex-col items-end">
-                      <span className="font-fredoka text-xl text-[var(--color-gold)]">
-                        {row.score} <span className="text-sm text-white/80 font-prompt">{activeTab === 'girl' ? 'ครั้ง' : 'แถว'}</span>
+                      <span className="font-fredoka text-lg md:text-xl text-[var(--color-gold)]">
+                        {row.score} <span className="text-xs md:text-sm text-white/80 font-prompt">{activeTab === 'girl' ? 'ครั้ง' : 'แถว'}</span>
                       </span>
-                      <span className="text-xs text-white/50">{getTimeAgo(row.created_at)}</span>
+                      <span className="text-[10px] md:text-xs text-white/50">{getTimeAgo(row.created_at)}</span>
                     </div>
                   </div>
                 </div>

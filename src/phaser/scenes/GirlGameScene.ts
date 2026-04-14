@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { playWater, playAdmin, playGirlWin } from '../../lib/audio';
 
 export default class GirlGameScene extends Phaser.Scene {
   private totalClicks: number = 0;
@@ -147,13 +148,19 @@ export default class GirlGameScene extends Phaser.Scene {
         ease: 'Elastic.out'
       });
 
+      if (!isAdmin) {
+        playWater();
+      }
+
       if (isAdmin) {
         this.adminsFound++;
+        playAdmin();
         // Confetti local
         this.fireLocalConfetti(x, y);
         
         if (this.adminsFound >= 3) {
           this.gameOver = true;
+          playGirlWin();
           this.time.delayedCall(1000, () => {
             // Dispatch game over event
             window.dispatchEvent(new CustomEvent('girl-game-end', {

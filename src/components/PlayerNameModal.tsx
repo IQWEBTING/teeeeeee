@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGameStore } from '../stores/gameStore';
 import { useSplash } from './SplashParticle';
+import { playClick } from '../lib/audio';
 
 export default function PlayerNameModal() {
   const { setPlayerName, setHasEnteredName } = useGameStore();
@@ -23,6 +24,7 @@ export default function PlayerNameModal() {
   }, []);
 
   const handleSubmit = (e: React.FormEvent | React.MouseEvent) => {
+    playClick(); // Added
     e.preventDefault();
     const val = inputValue.trim();
     

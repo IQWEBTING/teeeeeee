@@ -1,0 +1,18 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:5173",
+  "executionArgs": {
+    "projectName": "sstgh",
+    "projectPath": "c:\\Users\\User\\Downloads\\sstgh",
+    "testIds": [],
+    "additionalInstruction": "",
+    "serverMode": "production",
+    "envs": {
+      "API_KEY": "sk-user-PUdt4vTyjwZaG9IFr2z78AWjFlHoydE6hSKdcxiXwl4CYNiZVNBpUXesabs9_w21w6BhpzUvRqljK2Q1OUbct4QEyIyNl2OBOnHPocfW8w35SL-L0n9nYE8hhThrWipTSQ0"
+    }
+  },
+  "serverPort": 50425,
+  "proxy": "http://e1db97fb-68be-4738-ace1-80f647e07ee5:TYF9n1uWJHt8fOiJA27Fjm1B7a6RF671@tun.testsprite.com:8080"
+}

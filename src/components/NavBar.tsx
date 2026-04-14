@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { useGameStore } from '../stores/gameStore';
+import { playClick } from '../lib/audio';
 
 interface NavBarProps {
   onOpenNameModal?: () => void;
@@ -22,7 +23,10 @@ export default function NavBar({ onOpenNameModal }: NavBarProps) {
         {/* Left: Logo & Title */}
         <div 
           className="flex items-center gap-2 cursor-pointer transition-transform hover:scale-105"
-          onClick={() => navigate('/')}
+          onClick={() => {
+            playClick();
+            navigate('/');
+          }}
         >
           <span className="text-3xl filter drop-shadow-md">💦</span>
           <h1 className="text-xl md:text-2xl font-fredoka text-white tracking-widest hidden sm:block drop-shadow-md">
@@ -33,16 +37,22 @@ export default function NavBar({ onOpenNameModal }: NavBarProps) {
         {/* Right: Leaderboard & Player */}
         <div className="flex items-center gap-3 md:gap-4">
           <button 
-            onClick={() => navigate('/leaderboard')}
-            className="flex items-center gap-1 md:gap-2 bg-gradient-to-r from-blue-500/50 to-blue-400/50 hover:from-blue-500/70 hover:to-blue-400/70 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full font-prompt text-sm md:text-base border border-white/30 transition-all shadow-md"
+            onClick={() => {
+              playClick();
+              navigate('/leaderboard');
+            }}
+            className="hidden sm:flex items-center gap-1 md:gap-2 bg-gradient-to-r from-blue-500/50 to-blue-400/50 hover:from-blue-500/70 hover:to-blue-400/70 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full font-prompt text-sm md:text-base border border-white/30 transition-all shadow-md"
           >
             <span>🏆</span> 
             <span className="hidden sm:inline">Leaderboard</span>
           </button>
 
           <button 
-            onClick={() => navigate('/howtoplay')}
-            className="flex items-center gap-1 md:gap-2 bg-[var(--color-gold)]/30 hover:bg-[var(--color-gold)]/50 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full font-prompt text-sm md:text-base border border-[var(--color-gold)]/40 transition-all shadow-md"
+            onClick={() => {
+              playClick();
+              navigate('/howtoplay');
+            }}
+            className="hidden sm:flex items-center gap-1 md:gap-2 bg-[var(--color-gold)]/30 hover:bg-[var(--color-gold)]/50 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full font-prompt text-sm md:text-base border border-[var(--color-gold)]/40 transition-all shadow-md"
           >
             <span>📖</span> 
             <span className="hidden sm:inline">วิธีเล่น</span>
@@ -50,7 +60,10 @@ export default function NavBar({ onOpenNameModal }: NavBarProps) {
           
           {hasEnteredName ? (
             <button
-              onClick={onOpenNameModal}
+              onClick={() => {
+                playClick();
+                onOpenNameModal?.();
+              }}
               className="flex items-center gap-2 bg-[var(--color-pink)]/80 hover:bg-[var(--color-pink)] text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full font-prompt text-sm md:text-base border border-white/30 transition-all shadow-md"
             >
               <span>👤</span> 
@@ -58,7 +71,10 @@ export default function NavBar({ onOpenNameModal }: NavBarProps) {
             </button>
           ) : (
             <button
-              onClick={onOpenNameModal}
+              onClick={() => {
+                playClick();
+                onOpenNameModal?.();
+              }}
               className="flex items-center gap-2 bg-[var(--color-pink)]/80 hover:bg-[var(--color-pink)] text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full font-prompt text-sm md:text-base border border-white/30 transition-all shadow-md"
             >
               <span>👤</span> 

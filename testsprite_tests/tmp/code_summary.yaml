@@ -1,0 +1,87 @@
+version: "2"
+type: frontend
+tech_stack:
+  - React
+  - Vite
+  - TailwindCSS
+  - Zustand
+  - GSAP
+  - React Router
+routes:
+  - path: /
+    file: src/pages/Landing.tsx
+    auth_required: false
+    description: Landing page to enter player name and choose games
+  - path: /games/girl
+    file: src/pages/GirlGame.tsx
+    auth_required: false
+    description: Girl Game minigame
+  - path: /games/balloon
+    file: src/pages/BalloonGame.tsx
+    auth_required: false
+    description: Balloon Game minigame
+  - path: /leaderboard
+    file: src/pages/Leaderboard.tsx
+    auth_required: false
+    description: Leaderboard page to view high scores
+  - path: /howtoplay
+    file: src/pages/HowToPlay.tsx
+    auth_required: false
+    description: Instructions on how to play the games
+  - path: /admin
+    file: src/main.tsx
+    auth_required: false
+    description: Admin placeholder page
+features:
+  - name: User Onboarding
+    description: Enter player name to start playing games
+    files:
+      - src/pages/Landing.tsx
+      - src/stores/gameStore.ts
+    entry_route: /
+    user_interactions:
+      - Fill player name input
+      - Click submit button to set player name
+    api_calls: []
+    auth_required: false
+  - name: Girl Game Play
+    description: Play the Girl Game by clicking circles to find admins
+    files:
+      - src/pages/GirlGame.tsx
+    entry_route: /games/girl
+    user_interactions:
+      - Click circles to reveal heads
+      - Complete game to record score
+    api_calls:
+      - method: POST
+        endpoint: /rest/v1/girl_game_scores
+    auth_required: false
+  - name: Balloon Game Play
+    description: Play Balloon game by clicking balloons to find matching numbers
+    files:
+      - src/pages/BalloonGame.tsx
+    entry_route: /games/balloon
+    user_interactions:
+      - Click balloons
+      - Match numbers
+    api_calls:
+      - method: POST
+        endpoint: /rest/v1/balloon_game_scores
+    auth_required: false
+  - name: Leaderboard
+    description: View game scores
+    files:
+      - src/pages/Leaderboard.tsx
+    entry_route: /leaderboard
+    user_interactions:
+      - Toggle between Girl Game and Balloon Game tabs to view scores
+    api_calls:
+      - method: GET
+        endpoint: /rest/v1/girl_game_scores
+      - method: GET
+        endpoint: /rest/v1/balloon_game_scores
+    auth_required: false
+known_limitations:
+  - issue: Admin dashboard is incomplete
+    location: src/main.tsx
+    impact: Admin dashboard route only renders a static placeholder

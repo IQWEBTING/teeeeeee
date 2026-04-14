@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { useSplash } from './SplashParticle';
+import { playClick } from '../lib/audio';
 
 interface GameCardProps {
   title: string;
@@ -26,6 +27,7 @@ export default function GameCard({
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleClick = (e: React.MouseEvent) => {
+    playClick();
     // Trigger splash at center of card or mouse click roughly
     const rect = cardRef.current?.getBoundingClientRect();
     if (rect) {
@@ -39,7 +41,7 @@ export default function GameCard({
   return (
     <div
       ref={cardRef}
-      className="card-game p-6 flex flex-col items-center text-center animate-float group cursor-none w-full max-w-sm mx-auto transition-transform duration-300 hover:scale-105"
+      className="card-game p-6 md:p-8 flex flex-col items-center text-center animate-float group w-full max-w-sm mx-auto transition-transform duration-300 hover:scale-105 active:scale-98"
     >
       <div
         className="text-[64px] leading-none mb-4"
@@ -52,7 +54,7 @@ export default function GameCard({
         {title}
       </h2>
       
-      <p className="text-white/90 text-sm mb-6 leading-relaxed flex-grow">
+      <p className="font-prompt text-white/90 text-sm md:text-base mb-6 leading-relaxed flex-grow">
         {description}
       </p>
 

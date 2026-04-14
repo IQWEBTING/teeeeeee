@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { playClick } from '../lib/audio';
 
 interface ResultOverlayProps {
   isVisible: boolean;
@@ -69,23 +70,35 @@ export default function ResultOverlay({
       `}</style>
       
       <div ref={cardRef} className="card-game bg-[var(--color-water)]/90 max-w-sm w-full p-8 text-center relative border-4 border-white/30 shadow-2xl">
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 text-[80px] drop-shadow-lg z-10 animate-float">
+        <div className="absolute -top-10 md:-top-12 left-1/2 -translate-x-1/2 text-[64px] md:text-[80px] drop-shadow-lg z-10 animate-float">
           💦
         </div>
         
-        <h2 className="text-4xl font-fredoka text-white mt-12 mb-2 drop-shadow-md">{title}</h2>
-        <p className="text-2xl font-prompt text-white mb-4 bg-black/20 rounded-xl py-2 shadow-inner border border-white/10">
+        <h2 className="text-3xl md:text-4xl font-fredoka text-white mt-12 mb-2 drop-shadow-md">{title}</h2>
+        <p className="text-xl md:text-2xl font-prompt text-white mb-4 bg-black/20 rounded-xl py-2 shadow-inner border border-white/10">
           {scoreText}
         </p>
-        <p className="text-xl font-prompt text-[var(--color-gold)] font-bold mb-8 drop-shadow-sm">
+        <p className="text-lg md:text-xl font-prompt text-[var(--color-gold)] font-bold mb-8 drop-shadow-sm">
           {ratingText}
         </p>
         
         <div className="flex flex-col gap-3">
-          <button onClick={onReplay} className="btn-pink font-fredoka text-xl py-3 w-full border-2 border-white/20">
+          <button 
+            onClick={() => {
+              playClick();
+              onReplay();
+            }} 
+            className="btn-pink font-fredoka text-xl py-3 w-full border-2 border-white/20"
+          >
             เล่นใหม่ 🔄
           </button>
-          <button onClick={onLeaderboard} className="btn-water font-fredoka text-xl py-3 w-full border-2 border-white/20">
+          <button 
+            onClick={() => {
+              playClick();
+              onLeaderboard();
+            }} 
+            className="btn-water font-fredoka text-xl py-3 w-full border-2 border-white/20"
+          >
             ดูลีดเดอร์บอร์ด 🏆
           </button>
         </div>

@@ -1,15 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { Howl } from 'howler';
 import gsap from 'gsap';
 import { useGameStore } from '../stores/gameStore';
-
-// Mock empty audio to avoid fetch error, in a real app this would be a valid mp3 path.
-// For the sake of complete delivery without missing assets, we use a silent base64 data URI or we can instantiate Howl without it playing immediately and failing loudly.
-const bgMusic = new Howl({
-  src: ['data:audio/mp3;base64,//OExAAAAANIAAAAAExBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'],
-  loop: true,
-  volume: 0.3,
-});
+import { bgMusic, playClick } from '../lib/audio';
 
 export default function MusicToggle() {
   const { isMusicOn, toggleMusic } = useGameStore();
@@ -17,7 +9,9 @@ export default function MusicToggle() {
 
   useEffect(() => {
     if (isMusicOn) {
-      bgMusic.play();
+      if (!bgMusic.playing()) {
+        bgMusic.play();
+      }
     } else {
       bgMusic.pause();
     }
@@ -31,6 +25,7 @@ export default function MusicToggle() {
         { rotation: 360, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }
       );
     }
+    playClick();
     toggleMusic();
   };
 

@@ -1,4 +1,7 @@
 import Phaser from 'phaser';
+import LobbyScene from './scenes/LobbyScene';
+import GirlGameScene from './scenes/GirlGameScene';
+import BalloonScene from './scenes/BalloonScene';
 
 export const baseConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -25,6 +28,6 @@ export function createPhaserGame(containerId: string, scene: Phaser.Types.Scenes
   return new Phaser.Game({
     ...baseConfig,
     parent: containerId,
-    scene,
+    scene: [LobbyScene, GirlGameScene, BalloonScene],
   });
 }

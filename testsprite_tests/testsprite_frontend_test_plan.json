@@ -1,0 +1,638 @@
+[
+  {
+    "id": "TC001",
+    "title": "Set a valid player name and access the game list",
+    "description": "Verifies a new player can enter a non-empty name and reach the list of available games with the name associated to the session.",
+    "category": "User Onboarding",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill PlayerOne into the player name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the player name"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the available games list is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the player name is shown as set for the current session"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Girl Game posts a score that appears on the Girl leaderboard tab",
+    "description": "Verifies completing the Girl Game results in an entry on the Girl Game leaderboard for the current player name.",
+    "category": "Find the Admin (Girl Game)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill GirlLeaderboardUser into the player name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the player name"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /games/girl"
+      },
+      {
+        "type": "action",
+        "description": "Continue revealing circles until the round completes"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /leaderboard"
+      },
+      {
+        "type": "action",
+        "description": "Select the Girl Game leaderboard tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an entry for GirlLeaderboardUser is displayed on the Girl Game leaderboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the Girl Game leaderboard shows a click-count metric for entries"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Start Girl Game from a named session",
+    "description": "Verifies a player who has set a name can enter the Girl Game and see the expected initial game UI for a new round.",
+    "category": "Find the Admin (Girl Game)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill GirlRunner into the player name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the player name"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /games/girl"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a grid of 20 clickable circles is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the click count indicator is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Switch between game scoreboards",
+    "description": "Verifies a player can open the leaderboard and switch between Girl Game and Balloon Game scoreboards to view each list of scores.",
+    "category": "Leaderboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /leaderboard"
+      },
+      {
+        "type": "action",
+        "description": "Select the Girl Game scoreboard view"
+      },
+      {
+        "type": "action",
+        "description": "Select the Balloon Game scoreboard view"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify Balloon Game scores and their metrics are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "View leaderboard and switch between Girl and Balloon tabs",
+    "description": "Verifies a player can open the leaderboard and toggle between Girl Game and Balloon Game scoreboards successfully.",
+    "category": "Leaderboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /leaderboard"
+      },
+      {
+        "type": "action",
+        "description": "Select the Girl Game leaderboard tab"
+      },
+      {
+        "type": "action",
+        "description": "Select the Balloon Game leaderboard tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a scoreboard list is displayed for the selected game"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify switching tabs updates the displayed scoreboard content"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Start Balloon Game and see initial row with attempts",
+    "description": "Verifies a player who has set a name can enter the Balloon Game and see a row of 10 balloons with an attempts indicator.",
+    "category": "Matching Balloons (Balloon Game)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill BalloonRunner into the player name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the player name"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /games/balloon"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a row of 10 face-down balloons is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an attempts indicator for the current row is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Balloon Game consumes attempts and ends after 5 attempts without a match",
+    "description": "Verifies the Balloon Game decrements attempts with reveals and ends the game when a row reaches the attempt limit without a match.",
+    "category": "Matching Balloons (Balloon Game)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill BalloonFailer into the player name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the player name"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /games/balloon"
+      },
+      {
+        "type": "action",
+        "description": "Reveal balloons until the row reaches the maximum attempts without matching"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an end-of-game summary is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify gameplay no longer allows continuing the row after the attempt limit is reached"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Girl Game click increments and round completion prevents further interaction",
+    "description": "Verifies clicking circles increments the click count and that after the game completes, further circle interactions no longer change the score state.",
+    "category": "Find the Admin (Girl Game)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill GirlCompleter into the player name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the player name"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /games/girl"
+      },
+      {
+        "type": "action",
+        "description": "Click a circle to reveal it"
+      },
+      {
+        "type": "action",
+        "description": "Click a different circle to reveal it"
+      },
+      {
+        "type": "action",
+        "description": "Continue revealing circles until the round completes"
+      },
+      {
+        "type": "action",
+        "description": "Click a circle after completion"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a final score or completion summary is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify further interaction does not continue normal gameplay after completion"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Persist player name across refresh and route navigation",
+    "description": "Verifies a returning player’s name persists locally across page refresh and navigating to other routes, and remains available when starting a game.",
+    "category": "User Onboarding",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill PersistentPlayer into the player name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the player name"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /leaderboard"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /howtoplay"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Wait for the page to finish reloading"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the player name is still shown as set for the current session"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the available games list is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "From How to Play, navigate to Girl Game to start playing",
+    "description": "Verifies a player can move from the instructions page into the Girl Game to begin the gameplay experience.",
+    "category": "How To Play / Instructions",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /howtoplay"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to play the Girl Game"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the Girl Game play area is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "How To Play shows rules and allows navigation into each game",
+    "description": "Verifies the How To Play page renders rules and a comparison table and the user can proceed into both games from it.",
+    "category": "How To Play",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /howtoplay"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify gameplay rules and tips are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a comparison table for the two games is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to start the Girl Game from How To Play"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /howtoplay"
+      },
+      {
+        "type": "action",
+        "description": "Click the control to start the Balloon Game from How To Play"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the Balloon Game play area is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "How to Play content loads with rules and comparison table",
+    "description": "Verifies a player can read both games’ rules/tips and see a comparison table on the instructions page.",
+    "category": "How To Play / Instructions",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /howtoplay"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify step-by-step instructions for both games are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a comparison table of the two games is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "Leaderboard ordering reflects best-score direction per game",
+    "description": "Verifies the leaderboard sorts Girl scores with lower clicks ranked better and Balloon scores with higher rows ranked better using two scores created in-session.",
+    "category": "Leaderboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill SortTester into the player name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the player name"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /games/girl"
+      },
+      {
+        "type": "action",
+        "description": "Complete a round with more clicks by continuing to click extra circles before finding the final head"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /games/girl"
+      },
+      {
+        "type": "action",
+        "description": "Complete a round aiming for fewer total clicks"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /leaderboard"
+      },
+      {
+        "type": "action",
+        "description": "Select the Girl Game leaderboard tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the better Girl score (fewer clicks) is ranked above the worse Girl score for the same player"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC014",
+    "title": "Leaderboard shows correct metric direction per game",
+    "description": "Verifies the leaderboard presents the appropriate metric context for each game (click-based for Girl Game and rows-passed for Balloon Game).",
+    "category": "Leaderboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /leaderboard"
+      },
+      {
+        "type": "action",
+        "description": "Select the Girl Game scoreboard view"
+      },
+      {
+        "type": "action",
+        "description": "Select the Balloon Game scoreboard view"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the Balloon Game scoreboard displays a rows-passed style metric rather than a click-count style metric"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC015",
+    "title": "Reject empty player name",
+    "description": "Verifies submitting an empty player name shows a validation error and does not proceed to gameplay choices.",
+    "category": "User Onboarding",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill  into the player name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the player name"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a name validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the available games list is not displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC016",
+    "title": "Leaderboard supports rapid tab switching without breaking the view",
+    "description": "Verifies switching between Girl Game and Balloon Game tabs multiple times keeps the leaderboard usable and shows a scoreboard each time.",
+    "category": "Leaderboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /leaderboard"
+      },
+      {
+        "type": "action",
+        "description": "Select the Girl Game scoreboard view"
+      },
+      {
+        "type": "action",
+        "description": "Select the Balloon Game scoreboard view"
+      },
+      {
+        "type": "action",
+        "description": "Select the Girl Game scoreboard view"
+      },
+      {
+        "type": "action",
+        "description": "Select the Balloon Game scoreboard view"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a scoreboard list is still displayed after repeated switching"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC017",
+    "title": "Accept long and special-character player name",
+    "description": "Verifies the app accepts a long name with special characters and still allows access to the game list without UI blocking validation.",
+    "category": "User Onboarding",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill Player_测试-Name-1234567890-ExtraLong into the player name field"
+      },
+      {
+        "type": "action",
+        "description": "Submit the player name"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the available games list is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the player name is shown as set for the current session"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC018",
+    "title": "Leaderboard renders a stable empty state when no scores are available",
+    "description": "Verifies that if a scoreboard has no rows to display, the page shows a clear empty state instead of crashing or rendering broken UI.",
+    "category": "Leaderboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /leaderboard"
+      },
+      {
+        "type": "action",
+        "description": "Select the Girl Game scoreboard view"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify either a list of scores is displayed or an empty state message is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC019",
+    "title": "Deep-link to Girl Game without setting a name",
+    "description": "Verifies opening the Girl Game directly without a player name does not crash and the user is guided to set a name before scoring gameplay.",
+    "category": "Find the Admin (Girl Game)",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /games/girl"
+      },
+      {
+        "type": "action",
+        "description": "Click a circle to attempt to play"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the app remains stable without crashing"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user is prompted or redirected to set a player name before proceeding"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC020",
+    "title": "Admin placeholder page renders without crashing",
+    "description": "Verifies the admin/maintainer can visit the admin route and see a stable placeholder page rendered.",
+    "category": "Admin",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /admin"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an admin placeholder view is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the page renders without a blank screen or crash"
+      }
+    ],
+    "priority": "Low"
+  }
+]

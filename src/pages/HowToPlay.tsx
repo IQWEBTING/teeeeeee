@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import gsap from 'gsap';
 import NavBar from '../components/NavBar';
 import { useGameStore } from '../stores/gameStore';
+import { playClick } from '../lib/audio';
 
 const STEP_ICON_STYLE = "w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg border-4 border-white/30 shrink-0";
 
@@ -47,14 +48,14 @@ export default function HowToPlay() {
   }, []);
 
   return (
-    <div className="min-h-screen pt-[70px] pb-16" ref={containerRef}>
+    <div className="min-h-screen pt-[70px] pb-safe-nav" ref={containerRef}>
       <NavBar onOpenNameModal={() => setHasEnteredName(false)} />
 
       {/* Header */}
-      <div className="anim-card text-center py-10 px-4">
-        <div className="text-6xl mb-3 animate-float inline-block">📖</div>
-        <h1 className="font-fredoka text-4xl md:text-5xl text-white drop-shadow-lg mb-2">คู่มือการเล่น</h1>
-        <p className="font-prompt text-white/70 text-lg">สงกรานต์มินิเกม — เรียนรู้วิธีเล่นทั้ง 2 เกม</p>
+      <div className="anim-card text-center py-6 md:py-10 px-4">
+        <div className="text-5xl md:text-6xl mb-3 animate-float inline-block">📖</div>
+        <h1 className="text-responsive-h1 text-white drop-shadow-lg mb-2">คู่มือการเล่น</h1>
+        <p className="text-responsive-p text-white/70">สงกรานต์มินิเกม — เรียนรู้วิธีเล่นทั้ง 2 เกม</p>
       </div>
 
       <div className="max-w-3xl mx-auto px-4 flex flex-col gap-10">
@@ -62,12 +63,12 @@ export default function HowToPlay() {
         {/* ===== GAME 1: GIRL GAME ===== */}
         <div className="anim-card card-game overflow-hidden">
           {/* Game Banner */}
-          <div className="bg-gradient-to-r from-blue-500/50 to-cyan-400/50 p-6 flex items-center gap-4 border-b border-white/10">
-            <div className="text-5xl animate-float">👧💦</div>
+          <div className="bg-gradient-to-r from-blue-500/50 to-cyan-400/50 p-4 md:p-6 flex items-center gap-4 border-b border-white/10">
+            <div className="text-4xl md:text-5xl animate-float">👧💦</div>
             <div>
-              <p className="font-prompt text-white/60 text-sm uppercase tracking-widest">เกมที่ 1</p>
-              <h2 className="font-fredoka text-2xl md:text-3xl text-white drop-shadow">สาวน้อยตกน้ำ</h2>
-              <p className="font-prompt text-white/70 text-sm">Find the Admin · ยิ่งใช้น้อยครั้งยิ่งดี</p>
+              <p className="font-prompt text-white/60 text-[10px] md:text-sm uppercase tracking-widest">เกมที่ 1</p>
+              <h2 className="font-fredoka text-xl md:text-3xl text-white drop-shadow">สาวน้อยตกน้ำ</h2>
+              <p className="font-prompt text-white/70 text-xs md:text-sm">Find the Admin · ยิ่งใช้น้อยครั้งยิ่งดี</p>
             </div>
           </div>
 
@@ -96,7 +97,11 @@ export default function HowToPlay() {
             </div>
 
             {/* CTA */}
-            <Link to="/games/girl" className="btn-water text-center font-fredoka text-lg py-3 mt-2 block rounded-full">
+            <Link 
+              to="/games/girl" 
+              className="btn-water text-center font-fredoka text-lg py-3 mt-2 block rounded-full"
+              onClick={playClick}
+            >
               เล่น สาวน้อยตกน้ำ 👧
             </Link>
           </div>
@@ -135,9 +140,9 @@ export default function HowToPlay() {
             {/* Visual example of a row */}
             <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
               <p className="font-fredoka text-white/60 text-sm mb-3">ตัวอย่างแถวลูกโป่ง (10 ลูก · 5 ครั้งต่อแถว)</p>
-              <div className="flex flex-wrap justify-center gap-2">
+              <div className="flex flex-wrap justify-center gap-1.5 md:gap-2">
                 {['🎈','🎈','🎈','🎈','🎈','🎈','🎈','🎈','🎈','🎈'].map((b, i) => (
-                  <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-lg shadow-md border-2 border-white/20 cursor-default hover:scale-110 transition-transform">
+                  <div key={i} className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-sm md:text-lg shadow-md border-2 border-white/20 cursor-default hover:scale-110 transition-transform">
                     {b}
                   </div>
                 ))}
@@ -154,7 +159,11 @@ export default function HowToPlay() {
             </div>
 
             {/* CTA */}
-            <Link to="/games/balloon" className="btn-pink text-center font-fredoka text-lg py-3 mt-2 block rounded-full">
+            <Link 
+              to="/games/balloon" 
+              className="btn-pink text-center font-fredoka text-lg py-3 mt-2 block rounded-full"
+              onClick={playClick}
+            >
               เล่น ปาโป่งวัดดวง 🎈
             </Link>
           </div>
@@ -193,10 +202,18 @@ export default function HowToPlay() {
 
         {/* Nav Buttons */}
         <div className="anim-card flex flex-col sm:flex-row gap-3 justify-center pb-4">
-          <Link to="/" className="btn-water font-fredoka text-lg py-3 px-8 text-center rounded-full">
+          <Link 
+            to="/" 
+            className="btn-water font-fredoka text-lg py-3 px-8 text-center rounded-full"
+            onClick={playClick}
+          >
             🏠 กลับหน้าหลัก
           </Link>
-          <Link to="/leaderboard" className="btn-pink font-fredoka text-lg py-3 px-8 text-center rounded-full">
+          <Link 
+            to="/leaderboard" 
+            className="btn-pink font-fredoka text-lg py-3 px-8 text-center rounded-full"
+            onClick={playClick}
+          >
             🏆 ดูลีดเดอร์บอร์ด
           </Link>
         </div>
