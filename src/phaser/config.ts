@@ -24,7 +24,7 @@ export const baseConfig: Phaser.Types.Core.GameConfig = {
 /**
  * Helper to initialize a Phaser game inside a specific React container
  */
-export function createPhaserGame(containerId: string, scene: Phaser.Types.Scenes.SceneType | Phaser.Types.Scenes.SceneType[]): Phaser.Game {
+export function createPhaserGame(containerId: string | HTMLElement, scene: Phaser.Types.Scenes.SceneType | Phaser.Types.Scenes.SceneType[]): Phaser.Game {
   return new Phaser.Game({
     ...baseConfig,
     parent: containerId,

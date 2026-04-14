@@ -43,7 +43,7 @@ export default function GlobalPhaser() {
   useEffect(() => {
     const handleResume = () => {
       if (game && game.sound) {
-        game.sound.resume();
+        game.sound.resumeAll();
       }
     };
     window.addEventListener('resume-game-audio', handleResume);
